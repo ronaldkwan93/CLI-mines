@@ -5,8 +5,9 @@ public class Game {
         return new Coordinate(letter, number);
     }
 
-    public void overWriteCoordinate(Board board, Coordinate input) {
-        board.updateCell(input);
+    public boolean overWriteCoordinate(Board board, Coordinate input) {
+        boolean result = board.updateCell(input);
+        return result;
     }
 
 }

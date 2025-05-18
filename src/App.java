@@ -11,7 +11,7 @@ public class App {
         System.out.println("Let's play Minesweeper! Type play and press enter");
         Scanner scan = new Scanner(System.in);
         scan.nextLine();
-        
+
         Board board = new Board();
         board.displayBoard();
 
@@ -25,8 +25,13 @@ public class App {
             System.out.println(coord.number);
             // check if coordinates match bomb
             Game game = new Game();
-            game.overWriteCoordinate(board, coord);
-            board.displayBoard();
+            if (game.overWriteCoordinate(board, coord)) {
+                board.displayBoard();
+            } else {
+                System.out.println("Game over");
+
+                gameOn = false;
+            }
         }
         // Game.checkCoordinate();
         scan.close();

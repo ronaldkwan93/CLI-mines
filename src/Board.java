@@ -15,7 +15,6 @@ public class Board {
     }
     generateBombs();
 
-    System.out.println(bombs);
   }
 
   public void generateBombs() {
@@ -59,16 +58,31 @@ public class Board {
     }
   }
 
-  public void updateCell(Coordinate coordinate) {
-    grids[coordinate.number][coordinate.letter] = "x";
+  public boolean updateCell(Coordinate coordinate) {
     // System.out.println(grids[coordinate.number][coordinate.letter]);
 
-    // int row = coordinate.number;
-    // int col = coordinate.letter;
+    int row = coordinate.number;
+    int col = coordinate.letter;
 
-    // if (bombs[row][col]) {
-    //   grids[row][col] = "B"; // Mark as bomb
-    //   System.out.println("BOOM! You hit a bomb!");
-    // }
+    if (bombs[row][col]) {
+      grids[row][col] = "B"; // Mark as bomb
+      System.out.println("BOOM! You hit a bomb!");
+      revealAllBombs();
+      displayBoard();
+      return false;
+    } else {
+    grids[coordinate.number][coordinate.letter] = "x";
+    return true;
+    }
   }
+
+  public void revealAllBombs() {
+  for (int row = 0; row < 10; row++) {
+    for (int col = 0; col < 10; col++) {
+      if (bombs[row][col]) {
+        grids[row][col] = "B";
+      }
+    }
+  }
+}
 }
