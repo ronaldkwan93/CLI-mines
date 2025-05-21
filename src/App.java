@@ -21,9 +21,8 @@ public class App {
             String userCoordinate = scan.next();
             System.out.println(userCoordinate);
             Coordinate coord = Game.getCoordinates(userCoordinate);
-            System.out.println(coord.letter);
-            System.out.println(coord.number);
-            // check if coordinates match bomb
+            // System.out.println(coord.letter);
+            // System.out.println(coord.number);
             Game game = new Game();
             if (game.overWriteCoordinate(board, coord)) {
                 board.displayBoard();

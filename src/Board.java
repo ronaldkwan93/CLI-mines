@@ -4,6 +4,7 @@ public class Board {
   private String[][] grids = new String[10][10];
   private boolean[][] bombs = new boolean[10][10];
   private final int BOMB_COUNT = 10;
+  private int cellsRevealed = 0;
 
   public Board() {
 
@@ -28,7 +29,7 @@ public class Board {
       if (!bombs[col][row]) {
         bombs[col][row] = true;
         bombsPlaced++;
-        System.out.println("Placed bomb at [" + row + "][" + col + "]");
+        // System.out.println("Placed bomb at [" + row + "][" + col + "]");
       }
     }
 
@@ -59,7 +60,6 @@ public class Board {
 
   public boolean updateCell(Coordinate coordinate) {
     // System.out.println(grids[coordinate.number][coordinate.letter]);
-
     int row = coordinate.letter;
     int col = coordinate.number;
     System.err.println();
@@ -79,6 +79,12 @@ public class Board {
         grids[col][row] = Integer.toString(bombCount);
       } else {
         grids[col][row] = " ";
+
+      }
+      cellsRevealed++;
+      if (cellsRevealed == 90) {
+        revealAllBombs();
+        System.out.println("Congratulations! You have finished the game!");
 
       }
       return true;
