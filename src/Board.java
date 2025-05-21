@@ -71,7 +71,7 @@ public class Board {
       displayBoard();
       return false;
     } else {
-    grids[coordinate.number][coordinate.letter] = "x";
+    grids[coordinate.number][coordinate.letter] = " ";
     return true;
     }
   }
