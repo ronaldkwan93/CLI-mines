@@ -22,10 +22,9 @@ public class Board {
     int bombsPlaced = 0;
 
     while (bombsPlaced < BOMB_COUNT) {
-      int col = random.nextInt(10); 
-      int row = random.nextInt(10); 
+      int col = random.nextInt(10);
+      int row = random.nextInt(10);
 
-     
       if (!bombs[col][row]) {
         bombs[col][row] = true;
         bombsPlaced++;
@@ -63,7 +62,7 @@ public class Board {
 
     int row = coordinate.letter;
     int col = coordinate.number;
-System.err.println();
+    System.err.println();
     if (bombs[col][row]) {
       grids[col][row] = "B"; // Mark as bomb
       System.out.println("BOOM! You hit a bomb!");
@@ -71,22 +70,51 @@ System.err.println();
       displayBoard();
       return false;
     } else {
-      // check the amount of bombs around the coorindate. 
-  
-    grids[col][row] = " ";
-    System.out.println(row);
-    System.out.println(col);
-    return true;
+      // check the amount of bombs around the coorindate.
+      int bombCount = countSurroundingBombs(col, row);
+
+      // System.out.printf("bombs %d", bombCount);
+      // System.out.println();
+      if (bombCount > 0) {
+        grids[col][row] = Integer.toString(bombCount);
+      } else {
+        grids[col][row] = " ";
+
+      }
+      return true;
     }
   }
 
   public void revealAllBombs() {
-  for (int col = 0; col < 10; col++) {
-    for (int row = 0; row < 10; row++) {
-      if (bombs[col][row]) {
-        grids[col][row] = "B";
+    for (int col = 0; col < 10; col++) {
+      for (int row = 0; row < 10; row++) {
+        if (bombs[col][row]) {
+          grids[col][row] = "B";
+        }
       }
     }
   }
-}
+
+  public int countSurroundingBombs(int col, int row) {
+    int count = 0;
+
+    for (int i = -1; i <= 1; i++) {
+      for (int j = -1; j <= 1; j++) {
+        int newCol = col + i;
+        int newRow = row + j;
+
+        if (i == 0 && j == 0) {
+          continue;
+        }
+
+        if (newCol >= 0 && newCol < 10 && newRow >= 0 && newRow < 10) {
+          if (bombs[newCol][newRow]) {
+            count++;
+          }
+
+        }
+      }
+    }
+    return count;
+  }
 }
