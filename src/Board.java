@@ -22,12 +22,12 @@ public class Board {
     int bombsPlaced = 0;
 
     while (bombsPlaced < BOMB_COUNT) {
-      int row = random.nextInt(10); 
       int col = random.nextInt(10); 
+      int row = random.nextInt(10); 
 
      
-      if (!bombs[row][col]) {
-        bombs[row][col] = true;
+      if (!bombs[col][row]) {
+        bombs[col][row] = true;
         bombsPlaced++;
         System.out.println("Placed bomb at [" + row + "][" + col + "]");
       }
@@ -61,26 +61,30 @@ public class Board {
   public boolean updateCell(Coordinate coordinate) {
     // System.out.println(grids[coordinate.number][coordinate.letter]);
 
-    int row = coordinate.number;
-    int col = coordinate.letter;
-
-    if (bombs[row][col]) {
-      grids[row][col] = "B"; // Mark as bomb
+    int row = coordinate.letter;
+    int col = coordinate.number;
+System.err.println();
+    if (bombs[col][row]) {
+      grids[col][row] = "B"; // Mark as bomb
       System.out.println("BOOM! You hit a bomb!");
       revealAllBombs();
       displayBoard();
       return false;
     } else {
-    grids[coordinate.number][coordinate.letter] = " ";
+      // check the amount of bombs around the coorindate. 
+  
+    grids[col][row] = " ";
+    System.out.println(row);
+    System.out.println(col);
     return true;
     }
   }
 
   public void revealAllBombs() {
-  for (int row = 0; row < 10; row++) {
-    for (int col = 0; col < 10; col++) {
-      if (bombs[row][col]) {
-        grids[row][col] = "B";
+  for (int col = 0; col < 10; col++) {
+    for (int row = 0; row < 10; row++) {
+      if (bombs[col][row]) {
+        grids[col][row] = "B";
       }
     }
   }
